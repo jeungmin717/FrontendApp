@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void onClick(View view) {
-                Log.d("superdroid","FAFA!");
                 requestNecessaryPermissions(PERMISSIONS);
                 Matisse.from(MainActivity.this)
                         .choose(MimeType.ofAll())
@@ -206,13 +205,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         else if(requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK)
         {
-            Log.d("superdroid","bbubu!");
             mSelected = Matisse.obtainResult(data);
             Log.d("Matisse","mSelected: "+ mSelected);
-
-            Log.d("superdroid","phasephase");
             for(int i = 0 ; i < mSelected.size() ;i++) {
-                Log.d("superdroid","phphaphpah");
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mSelected.get(i));
                     bitmaps.add(bitmap);
@@ -240,11 +235,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @Override
         protected String doInBackground(String... params) {
             String url = params[0];
-            Log.d("superdroid","11");
             try {
                 HttpClient client = new HttpClient(url);
                 client.connectForMultipart();
-                Log.d("superdroid","22");
                 for(int i=0; i<bitmaps.size(); i++) {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     //ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -253,15 +246,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     tempBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     //b.compress(Bitmap.CompressFormat.PNG, 0, baos);
                     byte[] imageBytes = baos.toByteArray();
-                    Log.d("superdroid","33");
                     client.addFilePart("photo", "photo.jpeg", imageBytes);
-                    Log.d("superdroid","44");
                 }
-                Log.d("superdroid","55");
                 client.finishMultipart();
-                Log.d("superdroid","66");
                 String data = client.getResponse();
-                Log.d("superdroid","77");
             }
             catch(Throwable t) {
                 t.printStackTrace();
@@ -319,9 +307,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         annotateImageReq2.setFeatures(featureList);
         annotateImageReq2.setImage(getImageEncodeImage(bitmap)); //bitmap:카메라에서 찍은사진
         annotateImageRequests.add(annotateImageReq2);*/
-
-
-        Log.d("seolhee","phase2");
 
         new AsyncTask<Object, Void, String>() {
             @Override
