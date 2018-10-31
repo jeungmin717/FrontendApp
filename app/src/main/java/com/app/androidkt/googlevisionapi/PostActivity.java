@@ -32,13 +32,6 @@ public class PostActivity extends AppCompatActivity {
         String my_url = "http://52.78.159.170:3000/recommand/music";// Replace this with your own url
         //String my_data = "Hello my First Request Without any library";
         //String json = "{\"light\":1,\"bright\":1,\"refreshing\":1}";
-
-
-
-
-        Log.d("seolhee","here 1");
-
-
         new MyHttpRequestTask().execute(my_url,json_str);
 
 
@@ -61,7 +54,6 @@ public class PostActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             String my_url = params[0];
             String my_data = params[1];
-            Log.d("seolhee",my_data);
             //JSONObject obj=null;
 
 
@@ -81,7 +73,6 @@ public class PostActivity extends AppCompatActivity {
 
 
             try {
-                Log.d("seolhee","here 3");
                 URL url = new URL(my_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 // setting the  Request Method Type
@@ -112,19 +103,15 @@ public class PostActivity extends AppCompatActivity {
                         httpURLConnection.setDoOutput(true);
                         httpURLConnection.setDoInput(true);
                         httpURLConnection.setChunkedStreamingMode(0);
-                        Log.d("seolhee","here 4");
                         OutputStream outputStream = new BufferedOutputStream(httpURLConnection.getOutputStream());
                         OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream);
-                        Log.d("seolhee","here 5");
                         streamWriter.write(my_data);
-                        Log.d("seolhee","here 6");
                         streamWriter.flush();
                         streamWriter.close();
                         int status=0;
                         try {
                             status = httpURLConnection.getResponseCode();
                         }catch(Exception e){
-                            Log.d("seolhee","here 7");
                             e.printStackTrace();
                         }
                         if (status == 200){
@@ -133,10 +120,8 @@ public class PostActivity extends AppCompatActivity {
                             InputStreamReader inputStreamReader = new InputStreamReader(in);
 
                             int dataToRead = inputStreamReader.read();
-                            Log.d("seolhee","here 8");
 
                             while (dataToRead != -1) {
-                                Log.d("seolhee","not ending ...");
                                 char current = (char) dataToRead;
                                 dataToRead = inputStreamReader.read();
                                 actualOutput = actualOutput + current;
